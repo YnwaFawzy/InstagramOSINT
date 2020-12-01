@@ -16,6 +16,7 @@ import random
 import string
 import sys
 import time
+from datetime import datetime
 
 from banner import banner
 
@@ -56,13 +57,16 @@ class InstagramOSINT:
         response = requests.get(link)
         csrf = response.cookies['csrftoken']
         # Insert username here
+        exit
         payload = {
-            'username': 'usernamehere',
-            'enc_password': f'#PWD_INSTAGRAM_BROWSER:0:{time}:{passwordhere}',
+            'username': 'username_here',
+            'enc_password': f'#PWD_INSTAGRAM_BROWSER:0:{time}:<password_here>',
+            # <-- note the '0' - that means we want to use plain passwords
+
             'queryParams': {},
             'optIntoOneTap': 'false'
         }
-
+        exit
         login_header = {
             "User-Agent": "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36",
             "X-Requested-With": "XMLHttpRequest",
@@ -84,7 +88,6 @@ class InstagramOSINT:
             print("session_id: ", session_id)
         else:
             print("login failed ", login_response.text)
-
 
         print(colors.OKGREEN + f"[*] Starting Scan on {self.username}" + colors.ENDC)
         # Get the html data with the requests module
